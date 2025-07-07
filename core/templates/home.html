@@ -1,0 +1,169 @@
+{% extends 'base.html'%}
+
+{% block title %}Home | Book Reader{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <!-- Floating book icons for spatial effect -->
+    <div class="floating-books">
+        <div class="book-icon" style="--x: 10%; --y: 20%; --size: 4rem; --delay: 0s;">
+            <i class="mdi mdi-book-open-variant"></i>
+        </div>
+        <div class="book-icon" style="--x: 80%; --y: 30%; --size: 3rem; --delay: 0.5s;">
+            <i class="mdi mdi-book-account"></i>
+        </div>
+        <div class="book-icon" style="--x: 30%; --y: 70%; --size: 5rem; --delay: 1s;">
+            <i class="mdi mdi-book-music"></i>
+        </div>
+    </div>
+
+    <div class="hero-content glass">
+        <h1 class="hero-title">
+            <span class="line">Welcome to</span>
+            <span class="line">Book reader</span>
+        </h1>
+        <p class="hero-subtitle">Lite book reader and library</p>
+        <div class="hero-links">
+            <a href="{% url 'book_list' %}" class="hero-link">
+                <i class="mdi mdi-book-search" style="margin-right: 8px;"></i> View list
+            </a>
+            <a href="{% url 'add_book' %}" class="hero-link">
+                <i class="mdi mdi-book-plus" style="margin-right: 8px;"></i> Add new book
+            </a>
+        </div>
+    </div>
+    <div class="hero-signature glass">
+        <div class="book-stack">
+            <div class="book"></div>
+            <div class="book"></div>
+            <div class="book"></div>
+        </div>
+        <div class="title-plate">
+            <span>Lite book platform for all</span>
+        </div>
+    </div>
+</section>
+
+<!-- Feature Highlights Section -->
+<section class="features glass" style="max-width: 1200px; margin: 5rem auto; padding: 3rem;">
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;
+               background: linear-gradient(to right, #0A84FF, #BF5AF2);
+               -webkit-background-clip: text;
+               background-clip: text;
+               -webkit-text-fill-color: transparent;">
+        Why Choose Our Reader
+    </h2>
+
+    <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div class="feature-card" style="text-align: center; padding: 2rem; border-radius: 18px;">
+            <div style="font-size: 3rem; margin-bottom: 1rem; color: #0A84FF;">
+                <i class="mdi mdi-speedometer"></i>
+            </div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Lightning Fast</h3>
+            <p style="color: rgba(255, 255, 255, 0.7);">Instant loading for thousands of books with our optimized engine</p>
+        </div>
+
+        <div class="feature-card" style="text-align: center; padding: 2rem; border-radius: 18px;">
+            <div style="font-size: 3rem; margin-bottom: 1rem; color: #30D158;">
+                <i class="mdi mdi-eye-outline"></i>
+            </div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Reader Focused</h3>
+            <p style="color: rgba(255, 255, 255, 0.7);">Adjustable themes and layouts for perfect reading comfort</p>
+        </div>
+
+        <div class="feature-card" style="text-align: center; padding: 2rem; border-radius: 18px;">
+            <div style="font-size: 3rem; margin-bottom: 1rem; color: #FF9F0A;">
+                <i class="mdi mdi-bookshelf"></i>
+            </div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Organized Library</h3>
+            <p style="color: rgba(255, 255, 255, 0.7);">Smart categorization and powerful search capabilities</p>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Additions Section -->
+<section class="recent-books glass" style="max-width: 1200px; margin: 5rem auto; padding: 3rem;">
+    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;
+               background: linear-gradient(to right, #30D158, #5E5CE6);
+               -webkit-background-clip: text;
+               background-clip: text;
+               -webkit-text-fill-color: transparent;">
+        Recently Added Books
+    </h2>
+
+    <div class="books-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
+        {% for book in recent_books %}
+        <div class="book-card" style="background: rgba(40, 40, 44, 0.7); border-radius: 16px; overflow: hidden; transform: perspective(1000px) rotateX(2deg) rotateY(2deg); transition: transform 0.3s ease;">
+            <div style="height: 250px; background: #1C1C1E; display: flex; align-items: center; justify-content: center;">
+                <i class="mdi mdi-book-open-page-variant" style="font-size: 5rem; color: #5E5CE6;"></i>
+            </div>
+            <div style="padding: 1.2rem;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ book.title }}</h3>
+                <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; margin-bottom: 0.5rem;">{{ book.author }}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="background: #0A84FF; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem;">{{ book.genre }}</span>
+                    <span style="color: #FF9F0A; font-size: 0.9rem;">{{ book.pages }} pages</span>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+            <i class="mdi mdi-book-remove" style="font-size: 4rem; color: #BF5AF2; margin-bottom: 1rem;"></i>
+            <h3>No books added yet</h3>
+            <p>Start building your library by adding your first book</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Quick Stats Section -->
+<section class="stats glass" style="max-width: 800px; margin: 5rem auto; padding: 3rem; text-align: center;">
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem;">
+        <div>
+            <div style="font-size: 3rem; font-weight: 700; color: #0A84FF;">{{ total_books }}</div>
+            <div style="font-size: 1.1rem;">Books in Library</div>
+        </div>
+        <div>
+            <div style="font-size: 3rem; font-weight: 700; color: #30D158;">{{ total_authors }}</div>
+            <div style="font-size: 1.1rem;">Authors</div>
+        </div>
+        <div>
+            <div style="font-size: 3rem; font-weight: 700; color: #BF5AF2;">{{ total_pages }}</div>
+            <div style="font-size: 1.1rem;">Total Pages</div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    // Add parallax effect to books
+    document.addEventListener('mousemove', (e) => {
+        const books = document.querySelectorAll('.book-card, .feature-card');
+        books.forEach(book => {
+            const rect = book.getBoundingClientRect();
+            const x = (rect.left + rect.width/2 - e.clientX) / 30;
+            const y = (rect.top + rect.height/2 - e.clientY) / 30;
+
+            book.style.transform = `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg)`;
+        });
+    });
+
+    // Add animation to hero title
+    document.querySelectorAll('.hero-title .line').forEach((line, index) => {
+        setTimeout(() => {
+            line.style.opacity = 1;
+            line.style.transform = 'translateY(0)';
+        }, index * 300);
+    });
+
+    // Initialize floating books animation
+    document.querySelectorAll('.book-icon').forEach(icon => {
+        icon.style.opacity = 0;
+        setTimeout(() => {
+            icon.style.transition = 'opacity 1s ease';
+            icon.style.opacity = 1;
+        }, parseFloat(icon.style.getPropertyValue('--delay')) * 1000);
+    });
+</script>
+{% endblock %}
