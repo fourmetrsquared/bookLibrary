@@ -1,25 +1,20 @@
-# Python
 *.pyc
 __pycache__/
 
-# Environment
 .env
 venv/
 env/
+.venv
 
-# Django
 db.sqlite3
-/staticfiles/
+/static/
 /media/
 
-# VSCode / IDEs
 .vscode/
 .idea/
 
-# Migrations (optional, but usually included in Git)
  */migrations/*.pyc
  */migrations/__pycache__/
 
-# OS
 .DS_Store
 Thumbs.db
