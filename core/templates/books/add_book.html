@@ -1,40 +1,34 @@
-{% extends '../base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Add New Book{% endblock %}
 
 {% block style %}
 <style>
-    /* Vision UI Glass Form Styles */
+    /* Base Styles - Mobile First */
     .form-container {
-        max-width: 800px;
-        margin: 3rem auto;
-        padding: 3rem;
-        background: rgba(28, 28, 30, 0.6);
-        backdrop-filter: blur(30px);
-        -webkit-backdrop-filter: blur(30px);
+        width: 90%;
+        margin: 2rem auto;
+        padding: 1.5rem;
+        background: rgba(28, 28, 30, 0.75);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 24px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2),
                     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-        transform: perspective(1000px) rotateX(0) translateZ(0);
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .form-container:hover {
-        transform: perspective(1000px) rotateX(1deg) translateZ(20px);
     }
 
     .form-title {
-        text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 2.5rem;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
         background: linear-gradient(to right, #0A84FF, #BF5AF2);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-align: center;
+        padding-bottom: 0.8rem;
         position: relative;
-        padding-bottom: 1rem;
     }
 
     .form-title::after {
@@ -43,24 +37,23 @@
         bottom: 0;
         left: 25%;
         width: 50%;
-        height: 3px;
+        height: 2px;
         background: linear-gradient(90deg, #0A84FF, #BF5AF2);
-        border-radius: 2px;
+        border-radius: 1px;
     }
 
     .form-group {
-        margin-bottom: 1.8rem;
-        position: relative;
+        margin-bottom: 1.5rem;
     }
 
     .form-label {
         display: block;
-        margin-bottom: 0.8rem;
-        font-size: 1.1rem;
+        margin-bottom: 0.6rem;
+        font-size: 1rem;
         font-weight: 500;
         color: rgba(255, 255, 255, 0.9);
         position: relative;
-        padding-left: 10px;
+        padding-left: 8px;
     }
 
     .form-label::before {
@@ -69,179 +62,207 @@
         left: 0;
         top: 50%;
         transform: translateY(-50%);
-        width: 4px;
+        width: 3px;
         height: 60%;
         background: #0A84FF;
-        border-radius: 2px;
+        border-radius: 1px;
     }
 
     .form-control {
         width: 100%;
-        padding: 1.2rem 1.5rem;
+        padding: 1rem;
         background: rgba(40, 40, 44, 0.7);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 14px;
-        font-size: 1.1rem;
+        border-radius: 12px;
+        font-size: 1rem;
         color: white;
         transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
     }
 
     .form-control:focus {
         outline: none;
         border-color: #0A84FF;
         box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.3);
-        background: rgba(50, 50, 54, 0.8);
-    }
-
-    .form-select {
-        appearance: none;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-        background-repeat: no-repeat;
-        background-position: right 1.5rem center;
-        background-size: 1.2rem;
     }
 
     .checkbox-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 1rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 0.5rem;
     }
 
     .checkbox-item {
         display: flex;
         align-items: center;
-        gap: 0.8rem;
+        gap: 0.6rem;
     }
 
     .checkbox-input {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 6px;
-        background: transparent;
-        position: relative;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .checkbox-input:checked {
-        background: #0A84FF;
-        border-color: #0A84FF;
-    }
-
-    .checkbox-input:checked::after {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 6px;
-        width: 6px;
-        height: 12px;
-        border: solid white;
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
-    }
-
-    .checkbox-label {
-        color: rgba(255, 255, 255, 0.85);
-        font-size: 1rem;
+        border-radius: 5px;
     }
 
     .form-textarea {
-        min-height: 150px;
-        resize: vertical;
+        min-height: 120px;
+    }
+
+    .form-row {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
     }
 
     .cover-preview {
-        width: 150px;
-        height: 220px;
-        background: rgba(40, 40, 44, 0.7);
-        border: 1px dashed rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 1rem;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .cover-preview img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: cover;
+        width: 120px;
+        height: 180px;
+        margin: 1rem auto 0;
     }
 
     .cover-placeholder {
-        text-align: center;
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .submit-btn {
-        display: block;
-        width: 100%;
-        padding: 1.2rem;
-        background: linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%);
-        border: none;
-        border-radius: 14px;
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: white;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        margin-top: 2rem;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
+        padding: 1rem;
+        font-size: 1.1rem;
+        margin-top: 1.5rem;
     }
 
-    .submit-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: 0.5s;
-        z-index: -1;
-    }
-
-    .submit-btn:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(10, 132, 255, 0.4);
-    }
-
-    .submit-btn:hover::before {
-        left: 100%;
-    }
-
-    .submit-btn:active {
-        transform: translateY(2px);
-    }
-
-    /* Floating book animation */
     .floating-book {
-        position: absolute;
-        font-size: 2.5rem;
-        color: rgba(255, 255, 255, 0.1);
-        z-index: -1;
-        animation: float 12s infinite ease-in-out;
+        display: none; /* Hide on mobile */
     }
 
-    .book-1 { top: 10%; left: 5%; animation-delay: 0s; }
-    .book-2 { top: 25%; right: 8%; animation-delay: 2s; }
-    .book-3 { bottom: 15%; left: 12%; animation-delay: 4s; }
-    .book-4 { bottom: 30%; right: 15%; animation-delay: 6s; }
+    /* Tablet Styles */
+    @media (min-width: 600px) {
+        .form-container {
+            width: 85%;
+            padding: 2rem;
+        }
 
+        .form-title {
+            font-size: 2rem;
+        }
+
+        .checkbox-group {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .form-row {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .form-row > .form-group {
+            flex: 1 1 45%;
+            min-width: 200px;
+        }
+
+        .cover-preview {
+            margin: 1rem 0 0;
+        }
+
+        /* Show one floating book */
+        .floating-book {
+            display: block;
+            font-size: 2rem;
+            animation: float 12s infinite ease-in-out;
+            position: fixed;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .book-1 { top: 15%; left: 5%; }
+    }
+
+    /* Desktop Styles */
+    @media (min-width: 900px) {
+        .form-container {
+            max-width: 800px;
+            padding: 3rem;
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+        }
+
+        .checkbox-group {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .form-row > .form-group {
+            flex: 1 1 30%;
+        }
+
+        /* Show all floating books */
+        .floating-book {
+            opacity: 0.15;
+            font-size: 2.5rem;
+        }
+
+        .book-1 { top: 10%; left: 5%; }
+        .book-2 { top: 25%; right: 8%; }
+        .book-3 { bottom: 15%; left: 12%; }
+        .book-4 { bottom: 30%; right: 15%; }
+    }
+
+    /* Animation for all screen sizes */
     @keyframes float {
         0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-30px) rotate(5deg); }
+        50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    /* Mobile-specific enhancements */
+    @media (max-width: 480px) {
+        .form-container {
+            width: 95%;
+            padding: 1.2rem;
+            margin: 1rem auto;
+        }
+
+        .form-title {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            padding: 0.9rem;
+            font-size: 0.95rem;
+        }
+
+        .checkbox-group {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+
+        .checkbox-item {
+            gap: 0.5rem;
+        }
+
+        .checkbox-input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .checkbox-label {
+            font-size: 0.9rem;
+        }
+
+        .cover-preview {
+            width: 100px;
+            height: 150px;
+        }
+
+        .submit-btn {
+            padding: 0.9rem;
+            font-size: 1rem;
+        }
     }
 </style>
 {% endblock %}
@@ -265,16 +286,14 @@
 
         <div class="form-group">
             <label class="form-label">Author</label>
-            <select name="author" class="form-control form-select" required>
+            <select name="author" class="form-control" required>
                 <option value="" disabled selected>Select an author</option>
-                <option value="1">J.K. Rowling</option>
-                <option value="2">George R.R. Martin</option>
-                <option value="3">Stephen King</option>
-                <option value="4">J.R.R. Tolkien</option>
-                <option value="5">Brandon Sanderson</option>
+                {% for author in authors %}
+                <option value="{{ author.id }}">{{ author.name }}</option>
+                {% endfor %}
             </select>
-            <div style="margin-top: 1rem; text-align: right;">
-                <a href="#" style="color: #5FABFF; text-decoration: none; font-size: 0.9rem;">
+            <div style="margin-top: 0.5rem; text-align: right;">
+                <a href=" style="color: #5FABFF; text-decoration: none; font-size: 0.9rem;">
                     <i class="mdi mdi-plus" style="margin-right: 5px;"></i> Add new author
                 </a>
             </div>
@@ -283,30 +302,12 @@
         <div class="form-group">
             <label class="form-label">Genre</label>
             <div class="checkbox-group">
+                {% for genre in genres %}
                 <div class="checkbox-item">
-                    <input type="checkbox" id="genre1" name="genre" value="1" class="checkbox-input">
-                    <label for="genre1" class="checkbox-label">Fiction</label>
+                    <input type="checkbox" id="genre{{ genre.id }}" name="genre" value="{{ genre.id }}" class="checkbox-input">
+                    <label for="genre{{ genre.id }}" class="checkbox-label">{{ genre.name }}</label>
                 </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="genre2" name="genre" value="2" class="checkbox-input">
-                    <label for="genre2" class="checkbox-label">Fantasy</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="genre3" name="genre" value="3" class="checkbox-input">
-                    <label for="genre3" class="checkbox-label">Science Fiction</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="genre4" name="genre" value="4" class="checkbox-input">
-                    <label for="genre4" class="checkbox-label">Mystery</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="genre5" name="genre" value="5" class="checkbox-input">
-                    <label for="genre5" class="checkbox-label">Biography</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="genre6" name="genre" value="6" class="checkbox-input">
-                    <label for="genre6" class="checkbox-label">History</label>
-                </div>
+                {% endfor %}
             </div>
         </div>
 
@@ -315,7 +316,7 @@
             <textarea name="description" class="form-control form-textarea" placeholder="Enter book description"></textarea>
         </div>
 
-        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="form-row">
             <div class="form-group">
                 <label class="form-label">Number of Pages</label>
                 <input type="number" name="pages" class="form-control" placeholder="e.g., 320">
@@ -327,7 +328,7 @@
             </div>
         </div>
 
-        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="form-row">
             <div class="form-group">
                 <label class="form-label">ISBN</label>
                 <input type="text" name="isbn" class="form-control" placeholder="e.g., 978-3-16-148410-0">
@@ -335,7 +336,7 @@
 
             <div class="form-group">
                 <label class="form-label">Book Format</label>
-                <select name="format" class="form-control form-select">
+                <select name="format" class="form-control">
                     <option value="physical" selected>Physical</option>
                     <option value="ebook">E-Book</option>
                     <option value="audiobook">Audiobook</option>
@@ -350,15 +351,15 @@
             <div class="cover-preview" id="cover-preview">
                 <div class="cover-placeholder">
                     <i class="mdi mdi-book-open-blank-variant"></i>
-                    <div style="font-size: 0.9rem; margin-top: 10px;">Cover Preview</div>
+                    <div style="font-size: 0.8rem; margin-top: 8px;">Cover Preview</div>
                 </div>
             </div>
         </div>
 
-        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="form-row">
             <div class="form-group">
                 <label class="form-label">Reading Status</label>
-                <select name="status" class="form-control form-select">
+                <select name="status" class="form-control">
                     <option value="unread" selected>Unread</option>
                     <option value="reading">Currently Reading</option>
                     <option value="completed">Completed</option>
@@ -367,9 +368,9 @@
 
             <div class="form-group">
                 <label class="form-label">Rating</label>
-                <div style="display: flex; gap: 0.5rem;">
+                <div style="display: flex; gap: 0.3rem; justify-content: center;">
                     {% for i in "12345" %}
-                    <div class="star-rating" style="font-size: 1.8rem; cursor: pointer; color: #444;">★</div>
+                    <div class="star-rating" style="font-size: 1.5rem; cursor: pointer; color: #444;">★</div>
                     {% endfor %}
                 </div>
                 <input type="hidden" name="rating" id="rating-value" value="0">
@@ -377,74 +378,71 @@
         </div>
 
         <button type="submit" class="submit-btn">
-            <i class="mdi mdi-book-plus" style="margin-right: 10px;"></i> Add Book to Library
+            <i class="mdi mdi-book-plus" style="margin-right: 8px;"></i> Add Book
         </button>
     </form>
 </div>
 
 <script>
-    // Cover image preview
+    // Mobile-optimized cover preview
     document.getElementById('cover-upload').addEventListener('change', function(e) {
         const preview = document.getElementById('cover-preview');
         if (this.files && this.files[0]) {
             const reader = new FileReader();
 
             reader.onload = function(e) {
-                preview.innerHTML = `<img src="${e.target.result}" alt="Book Cover">`;
+                preview.innerHTML = `<img src="${e.target.result}" alt="Book Cover" style="width:100%;height:100%;object-fit:cover;">`;
             }
 
             reader.readAsDataURL(this.files[0]);
         }
     });
 
-    // Star rating system
+    // Star rating for mobile
     const stars = document.querySelectorAll('.star-rating');
     const ratingInput = document.getElementById('rating-value');
 
     stars.forEach((star, index) => {
         star.addEventListener('click', () => {
-            // Update rating value
             ratingInput.value = index + 1;
-
-            // Update star display
             stars.forEach((s, i) => {
-                if (i <= index) {
-                    s.style.color = '#FF9F0A'; // Filled star
-                } else {
-                    s.style.color = '#444'; // Empty star
-                }
+                s.style.color = i <= index ? '#FF9F0A' : '#444';
             });
         });
 
-        // Hover effect
-        star.addEventListener('mouseover', () => {
-            for (let i = 0; i <= index; i++) {
-                stars[i].style.color = '#FF9F0A';
+        // Touch-friendly hover alternative
+        star.addEventListener('touchstart', () => {
+            stars.forEach((s, i) => {
+                s.style.color = i <= index ? '#FF9F0A' : '#444';
+            });
+        });
+    });
+
+    // Mobile form enhancements
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('focus', () => {
+            if (window.innerWidth < 600) {
+                // Scroll to element on mobile when selecting
+                setTimeout(() => {
+                    select.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
             }
         });
-
-        star.addEventListener('mouseout', () => {
-            const currentRating = parseInt(ratingInput.value);
-            stars.forEach((s, i) => {
-                if (i < currentRating) {
-                    s.style.color = '#FF9F0A';
-                } else {
-                    s.style.color = '#444';
-                }
-            });
-        });
     });
 
-    // Form enhancement
-    const formControls = document.querySelectorAll('.form-control');
-    formControls.forEach(control => {
-        control.addEventListener('focus', () => {
-            control.parentElement.style.transform = 'translateZ(20px)';
+    // Adjust floating books for orientation changes
+    function adjustFloatingBooks() {
+        const books = document.querySelectorAll('.floating-book');
+        books.forEach(book => {
+            if (window.innerWidth < 600) {
+                book.style.display = 'none';
+            } else {
+                book.style.display = 'block';
+            }
         });
+    }
 
-        control.addEventListener('blur', () => {
-            control.parentElement.style.transform = 'translateZ(0)';
-        });
-    });
+    window.addEventListener('resize', adjustFloatingBooks);
+    window.addEventListener('orientationchange', adjustFloatingBooks);
 </script>
 {% endblock %}
