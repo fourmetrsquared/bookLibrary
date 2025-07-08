@@ -66,7 +66,7 @@ def book_detail(request, slug):
 	return render(request, 'books/book_detail.html', context)
 
 def book_list(request):
-	pass
+	return render(request, 'books/books.html')
 
 def author_list(request):
 	pass

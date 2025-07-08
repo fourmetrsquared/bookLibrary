@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 </head>
 <body>
-    <div class="nav-bar">
-        <div class="nav-links">
-            <a class="nav-link">Home</a>
-        </div>
-    </div>
+<!--    <div class="nav-bar">-->
+<!--        <div class="nav-links">-->
+<!--            <a class="nav-link">Home</a>-->
+<!--        </div>-->
+<!--    </div>-->
+    {% block style %}{% endblock %}
     {% block content %}{% endblock %}
 </body>
 </html>
